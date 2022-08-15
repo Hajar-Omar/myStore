@@ -7,20 +7,20 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'products',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'products',
-    loadChildren: ()=> ProductModule
+    loadChildren: () => ProductModule,
   },
   {
-    path:'cart',
-    loadChildren:()=> CartModule
-  }
+    path: 'cart',
+    loadChildren: () => CartModule,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

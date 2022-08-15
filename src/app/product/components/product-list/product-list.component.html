@@ -1,1 +1,20 @@
-<p>product-list works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-4 my-5 px-5" *ngFor="let item of products">
+            <div class="item d-flex flex-column align-items-center">
+                <img class="p-3" [src]="item.url" [alt]="item.name" [routerLink]="['../product', item.id]">
+                <h3 class="my-1">{{ item.name }}</h3>
+                <h3>$ {{ item.price }}</h3>
+                <mat-form-field>
+                    <mat-label>Amount</mat-label>
+                    <mat-select [(ngModel)]="item.selectedAmount" name="amount">
+                      <mat-option *ngFor="let i of amount" [value]="i">
+                        {{i}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button mat-raised-button color="primary" (click)="addToCart(item)">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>

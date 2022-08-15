@@ -7,20 +7,20 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'products-list',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'products-list',
-    component: ProductListComponent
+    component: ProductListComponent,
   },
   {
     path: 'product/:id',
-    component: ProducDetailsComponent
-  }
+    component: ProducDetailsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProductRoutingModule { }
+export class ProductRoutingModule {}

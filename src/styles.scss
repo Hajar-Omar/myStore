@@ -1,4 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$primar-color: #00a2ff;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+img {
+  max-width: 100%;
+}
+
+a {
+  &,
+  &:focus,
+  &:visited {
+    text-decoration: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primar-color;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 2px;
+}
+
+.mat-select-value,
+.mat-select-arrow,
+.mat-form-field-label {
+  color: #000;
+}
+
+.mat-form-field-flex {
+  border: 1px solid;
+  text-align: center;
+  padding: 5px;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  background-color: white !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: rgb(0 0 0 / 70%);
+}
