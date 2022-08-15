@@ -6,3 +6,8 @@ export interface IProduct {
   description: string;
   selectedAmount?: number;
 }
+
+export interface IUser {
+  name: string;
+  total: number;
+}

@@ -55,3 +55,11 @@ a {
 .mat-form-field-appearance-legacy .mat-form-field-label {
   color: rgb(0 0 0 / 70%);
 }
+
+.mat-raised-button.mat-primary.mat-button-disabled{
+  background-color: $primar-color !important;
+}
+
+.mat-hint {
+  color: rgb(0 0 0 / 48%);
+}

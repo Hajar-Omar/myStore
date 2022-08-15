@@ -1,31 +1,120 @@
-<div class="container">
-  <div class="row" *ngFor="let item of cart">
-    <div class="col-3 pe-5">
-      <img [src]="item.url" [alt]="item.name" />
-    </div>
-    <div class="col-3 px-3">
-      <div class="d-flex flex-column justify-content-center h-100">
-        <h2>{{ item.name }}</h2>
-        <h2>${{ item.price }}</h2>
-        <div class="d-flex">
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Amount:</mat-label>
-            <input
-              type="number"
-              min="1"
-              matInput
-              placeholder="xx"
-              [(ngModel)]="item.selectedAmount"
-              (ngModelChange)="changeAmount(item)"
-            />
-          </mat-form-field>
+<div class="container mt-5" *ngIf="cart.length">
+  <div class="row">
+    <div class="col-6 d-flex flex-wrap">
+      <ng-container  *ngFor="let item of cart">
+      <div class="col-6 pe-5 mb-5">
+        <img [src]="item.url" [alt]="item.name" />
+      </div>
+      <div class="col-6 px-3">
+        <div class="d-flex flex-column justify-content-center h-100">
+          <h2>{{ item.name }}</h2>
+          <h2>${{ item.price }}</h2>
+          <div class="d-flex">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Amount:</mat-label>
+              <input
+                type="number"
+                min="1"
+                matInput
+                placeholder="xx"
+                [(ngModel)]="item.selectedAmount"
+                (ngModelChange)="changeAmount()"
+              />
+            </mat-form-field>
+          </div>
         </div>
       </div>
+    </ng-container>
     </div>
-    <div class="col-6"></div>
+    <div class="col-6">
+      <form
+        [formGroup]="paymentForm"
+        class="d-flex flex-column justify-content-center mt-5"
+      >
+        <mat-form-field class="mb-3" appearance="fill">
+          <mat-label>Full name</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="fullName"
+            placeholder="(Minimum 3 characters)"
+          />
+          <mat-error
+            *ngIf="!paymentForm.controls['fullName'].hasError('minLength')"
+          >
+            Please enter a valid Full name
+          </mat-error>
+          <mat-error
+            *ngIf="paymentForm.controls['fullName'].hasError('required')"
+          >
+            Full name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mb-3" appearance="fill">
+          <mat-label>Address</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="address"
+            placeholder="(Minimum 3 characters)"
+          />
+          <mat-error
+            *ngIf="!paymentForm.controls['address'].hasError('minLength')"
+          >
+            Please enter a valid Address
+          </mat-error>
+          <mat-error
+            *ngIf="paymentForm.controls['address'].hasError('required')"
+          >
+            Address is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mb-3" appearance="fill">
+          <mat-label>Credit Card Number</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="creditCardNumber"
+            placeholder="(16-digit numbers)"
+          />
+          <mat-error
+            *ngIf="
+              !paymentForm.controls['creditCardNumber'].hasError('minLength') &&
+              !paymentForm.controls['creditCardNumber'].hasError('maxLength')
+            "
+          >
+            Please enter a valid Credit Card Number
+          </mat-error>
+          <mat-error
+            *ngIf="
+              paymentForm.controls['creditCardNumber'].hasError('required')
+            "
+          >
+            Credit Card Number is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-hint class="mb-3"
+          >We will nerver share your payment details with anyone else.</mat-hint
+        >
+
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="paymentForm.invalid"
+          (click)="submit()"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   </div>
   <div class="row" *ngIf="total">
-    <div class="col-12 large-font mt-5">total: $ {{ total }}</div>
+    <div class="col-12 large-font mt-5">
+      total: $ {{ total | number: "1.2" }}
+    </div>
   </div>
 </div>
 
