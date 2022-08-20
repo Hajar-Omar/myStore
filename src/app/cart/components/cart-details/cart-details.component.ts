@@ -36,6 +36,7 @@ export class CartDetailsComponent implements OnInit {
       ]),
       creditCardNumber: new FormControl('', [
         Validators.required,
+        Validators.pattern(/[0-9]/),
         Validators.maxLength(16),
         Validators.minLength(16),
       ]),
@@ -46,20 +47,21 @@ export class CartDetailsComponent implements OnInit {
     this.loadCartDetails();
   }
 
-  loadCartDetails() {
-    this.cart = this.cartService.cart;
-    this.updateTotal();
+  getCtrl(controlName: string){
+    return this.paymentForm.get(controlName);
   }
 
-  updateTotal() {
-    this.total = this.cart.reduce(
+  loadCartDetails() {
+    this.cart = this.cartService.cart;
+    this.updateTotal(this.cart);
+  }
+
+  updateTotal(cart: IProduct[]) {
+    this.cart = cart;
+    this.total = cart.reduce(
       (acc, cur) => acc + cur.selectedAmount * cur.price,
       0
     );
-  }
-
-  changeAmount() {
-    this.updateTotal();
   }
 
   submit() {
@@ -71,8 +73,7 @@ export class CartDetailsComponent implements OnInit {
     // reset cart
     this.cartService.cart = [];
     this.cart = [];
-    this.updateTotal();
-
+    this.updateTotal([]);
     this.router.navigate(['cart/done']);
   }
 }

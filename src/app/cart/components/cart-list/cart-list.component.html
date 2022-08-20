@@ -1,0 +1,24 @@
+<ng-container *ngFor="let item of cart">
+    <div class="col-6 pe-5 mb-5">
+      <img [src]="item.url" [alt]="item.name" />
+    </div>
+    <div class="col-6 px-3">
+      <div class="d-flex flex-column justify-content-center h-100">
+        <h2>{{ item.name }}</h2>
+        <h2>${{ item.price }}</h2>
+        <div class="d-flex">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Amount:</mat-label>
+            <input
+              type="number"
+              min="1"
+              matInput
+              placeholder="xx"
+              [(ngModel)]="item.selectedAmount"
+              (ngModelChange)="changeAmount()"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </ng-container>

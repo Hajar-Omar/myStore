@@ -1,30 +1,7 @@
 <div class="container mt-5" *ngIf="cart.length">
   <div class="row">
     <div class="col-6 d-flex flex-wrap">
-      <ng-container  *ngFor="let item of cart">
-      <div class="col-6 pe-5 mb-5">
-        <img [src]="item.url" [alt]="item.name" />
-      </div>
-      <div class="col-6 px-3">
-        <div class="d-flex flex-column justify-content-center h-100">
-          <h2>{{ item.name }}</h2>
-          <h2>${{ item.price }}</h2>
-          <div class="d-flex">
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Amount:</mat-label>
-              <input
-                type="number"
-                min="1"
-                matInput
-                placeholder="xx"
-                [(ngModel)]="item.selectedAmount"
-                (ngModelChange)="changeAmount()"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </ng-container>
+      <app-cart-list [cart]="cart" (cartChange)="updateTotal($event)" class="d-flex flex-wrap"></app-cart-list>
     </div>
     <div class="col-6">
       <form
@@ -37,17 +14,21 @@
             type="text"
             matInput
             formControlName="fullName"
+            minlength="3"
             placeholder="(Minimum 3 characters)"
           />
           <mat-error
-            *ngIf="!paymentForm.controls['fullName'].hasError('minLength')"
+            *ngIf="
+              getCtrl('fullName').invalid &&
+              (getCtrl('fullName').dirty || getCtrl('fullName').touched)
+            "
           >
-            Please enter a valid Full name
-          </mat-error>
-          <mat-error
-            *ngIf="paymentForm.controls['fullName'].hasError('required')"
-          >
-            Full name is <strong>required</strong>
+            <p *ngIf="getCtrl('fullName'); hasError: 'minLength'">
+              Please enter a valid Full name
+            </p>
+            <p *ngIf="getCtrl('fullName').hasError('required')">
+              Full name is <strong>required</strong>
+            </p>
           </mat-error>
         </mat-form-field>
 
@@ -57,42 +38,53 @@
             type="text"
             matInput
             formControlName="address"
+            minlength="3"
             placeholder="(Minimum 3 characters)"
           />
           <mat-error
-            *ngIf="!paymentForm.controls['address'].hasError('minLength')"
+            *ngIf="
+              getCtrl('address').invalid &&
+              (getCtrl('address').dirty || getCtrl('address').touched)
+            "
           >
-            Please enter a valid Address
-          </mat-error>
-          <mat-error
-            *ngIf="paymentForm.controls['address'].hasError('required')"
-          >
-            Address is <strong>required</strong>
+            <p *ngIf="!getCtrl('address').hasError('minLength')">
+              Please enter a valid Address
+            </p>
+            <p *ngIf="getCtrl('address').hasError('required')">
+              Address is <strong>required</strong>
+            </p>
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="mb-3" appearance="fill">
           <mat-label>Credit Card Number</mat-label>
           <input
-            type="email"
+            type="text"
             matInput
+            minlength="16"
+            maxlength="16"
             formControlName="creditCardNumber"
             placeholder="(16-digit numbers)"
           />
+
           <mat-error
             *ngIf="
-              !paymentForm.controls['creditCardNumber'].hasError('minLength') &&
-              !paymentForm.controls['creditCardNumber'].hasError('maxLength')
+              getCtrl('creditCardNumber').invalid &&
+              (getCtrl('creditCardNumber').dirty ||
+                getCtrl('creditCardNumber').touched)
             "
           >
-            Please enter a valid Credit Card Number
-          </mat-error>
-          <mat-error
-            *ngIf="
-              paymentForm.controls['creditCardNumber'].hasError('required')
-            "
-          >
-            Credit Card Number is <strong>required</strong>
+            <p
+              *ngIf="
+                !getCtrl('creditCardNumber').hasError('minLength') &&
+                !getCtrl('creditCardNumber').hasError('maxLength')
+              "
+            >
+              Please enter a valid Credit Card Number
+            </p>
+            <p *ngIf="getCtrl('creditCardNumber').hasError('required')">
+              Credit Card Number is <strong>required</strong>
+            </p>
           </mat-error>
         </mat-form-field>
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { IProduct } from 'src/app/core/models/interfaces/product';
-import { ProductService } from 'src/app/core/services/product.service';
+import { ProductService } from 'src/app/product/services/product.service';
 
 @Component({
   selector: 'app-product-list',
